@@ -1,15 +1,15 @@
 <template>
   <div id="login">
     <div class="login-form">
-      <el-form ref="form" :model="form" label-width="80px">
+      <el-form ref="form" :model="form" label-width="80px" :rules="loginRule">
         <img src="@/assets/likeed.png" alt="" class="icon-img">
-        <el-form-item>
-          <el-input v-model="form.name" placeholder="请输入账号" prefix-icon="el-icon-mobile-phone" validate-event /></el-form-item>
-        <el-form-item>
-          <el-input v-model="form.password" prefix-icon="el-icon-lock" show-password placeholder="请输入密码" />
+        <el-form-item prop="mobile">
+          <el-input v-model="form.mobile" placeholder="请输入账号" prefix-icon="el-icon-mobile-phone" /></el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="form.password" prefix-icon="el-icon-lock" placeholder="请输入密码" suffix-icon="el-icon-view" type="password" />
         </el-form-item>
-        <el-form-item>
-          <el-input v-model="form.verification" placeholder="请输入验证码" prefix-icon="el-icon-key">
+        <el-form-item prop="code">
+          <el-input v-model="form.code" placeholder="请输入验证码" prefix-icon="el-icon-key">
             <div slot="suffix">
               <img src="@/assets/yanzhengma.jpg" alt="" class="verification">
             </div>
@@ -17,7 +17,7 @@
 
         </el-form-item>
         <!-- <el-form-item> -->
-        <el-button type="primary">登录</el-button>
+        <el-button type="primary" @click="loginBtn">登录</el-button>
         <!-- </el-form-item> -->
       </el-form>
 
@@ -29,13 +29,30 @@
 export default {
   data() {
     return {
+      // 数据对象
       form: {
-        name: 'admin',
-        password: '123456',
-        verification: ''
+        // 账号
+        mobile: '',
+        // 密码
+        password: '',
+        code: '' // 验证码
 
       },
-      input: ''
+      input: '',
+      // 校验规则 {key:value}
+      loginRule: {
+        mobile: [{ required: true, message: '账号不能为空', trigger: 'blur' }, {
+          pattern: /^1[3-9]\d{9}$/, // 以1开头，第二位为3-9，最后9位数
+          trigger: 'blur',
+          message: '账号格式不正确'
+        }], // 账号校验
+        password: [{ required: true, message: '密码不能为空', trigger: 'blur' }, {
+          min: 6, max: 16,
+          trigger: 'blur',
+          message: '密码长度6-16位'
+        }], // 密码校验
+        code: [{ required: true, message: '验证码不能为空', trigger: 'blur' }]
+      }
     }
   },
 
@@ -44,7 +61,14 @@ export default {
   },
 
   methods: {
-
+    // 通过$refs来拿到form元素标签，然后调用validate
+    loginBtn() {
+      this.$refs.form.validate().then(() => {
+        console.log('成功')
+      }).catch(() => {
+        console.log('失败')
+      })
+    }
   }
 }
 </script>
@@ -147,5 +171,18 @@ export default {
       height: 51px !important;
       margin-right: -11px !important;
       margin-top: -1px;
+  }
+  ::v-deep .el-form-item__error{
+        color: #f56c6c;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 50px;
+    left: -60px;
+  }
+  ::v-deep .el-form-item.is-error .el-input__validateIcon{
+    display: none !important;
+
   }
 </style>
