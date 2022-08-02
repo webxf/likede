@@ -1,24 +1,27 @@
 import request from '@/utils/request'
 
-export function login(data) {
+/**
+ * 
+ * @param {登录请求} data 
+ * @returns promise
+ */
+export const login = (data) => {
   return request({
-    url: '/vue-admin-template/user/login',
-    method: 'post',
-    data
+    url:'/api/user-service/user/login',
+    method:'POST',
+   data
   })
 }
-
-export function getInfo(token) {
+/**
+ * 
+ * @param {验证码} clientToken 
+ * @returns promise
+ */
+//验证码请求接口
+export const code = (clientToken) => {
   return request({
-    url: '/vue-admin-template/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
-
-export function logout() {
-  return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
+    url:`/api/user-service/user/imageCode/${clientToken}`,
+    method:'GET',
+    responseType:'blob'
   })
 }
