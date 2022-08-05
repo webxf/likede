@@ -25,3 +25,14 @@ export const code = (clientToken) => {
     responseType:'blob'
   })
 }
+/**
+ * 
+ * @param {用户信息} id 
+ * @returns promise
+ */
+export function getUserInfoApi(id){
+  return request({
+    url:`/api/user-service/user/${id}`,
+    method: 'GET',
+  })
+}

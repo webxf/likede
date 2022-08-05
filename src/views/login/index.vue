@@ -45,7 +45,9 @@
           </el-input>
         </el-form-item>
         <!-- <el-form-item> -->
-        <el-button type="primary" @click="loginBtn">登录</el-button>
+        <el-button type="primary" @click="loginBtn" :loading="loading"
+          >登录</el-button
+        >
         <!-- </el-form-item> -->
       </el-form>
     </div>
@@ -53,7 +55,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 import { code } from "@/api/user";
 
 export default {
@@ -95,6 +97,7 @@ export default {
       loginFotmList: {},
       codeToken: "",
       passwordform: "password", //密码类型
+      loading: false,
     };
   },
   computed: {},
@@ -105,23 +108,21 @@ export default {
   methods: {
     //添加点击事件，获取随机的验证码
     async changeImg() {
-      // this.$store.dispatch("user/getCode");
-      // console.log(this.random);
       //获取验证码
 
       //获取随机数
       const random = Math.random();
-      //  this.clientToken = value
-      console.log(random);
+
       //发送请求，获取验证码接口数据
       const { data } = await code(random);
       this.imgBanner = URL.createObjectURL(data);
       //将随机数赋值给codeToken
       this.codeToken = random;
-      console.log(this.codeToken);
+      // console.log(this.codeToken);
     },
     // 通过$refs来拿到form元素标签，然后调用validate
-    loginBtn() {
+    async loginBtn() {
+      this.loading = true;
       this.loginFotmList = {
         loginName: this.loginform.loginName,
         password: this.loginform.password,
@@ -130,10 +131,18 @@ export default {
         loginType: 0,
       };
       //拿到form表单框，表单校验
-      this.$refs.loginform.validate(async () => {
-        await this.$store.dispatch("user/getToken", this.loginFotmList);
+      await this.$refs.loginform.validate(async () => {
+        try {
+          await this.$store.dispatch("user/getToken", this.loginFotmList);
+          //登录成功跳转页面
+          this.$router.push("/");
+          this.$message.success("登录成功");
+        } finally {
+          this.loading = false;
+        }
       });
     },
+
     //判断密码类型
     showeyes() {
       //加入密码类型为文本，让其变成password

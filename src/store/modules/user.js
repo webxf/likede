@@ -1,36 +1,50 @@
-import {login} from '@/api/user'
-import { Message } from 'element-ui'
-import router from '@/router'
+import {login,getUserInfoApi} from '@/api/user'
+import {setTokenTime} from '@/utils/auth'
 export default {
   namespaced: true,
   state:{
-    token:JSON.parse(localStorage.getItem('token'))||{},
+    token:'',
+    userInfo:{},
+    userId:''
   },
   mutations:{
     //登录
     setToken(state,payload){
       state.token = payload
-      //将token存储到本地
-      localStorage.setItem('token',JSON.stringify(state.token))
     },
+    setUserId(state,payload){
+      state.userId = payload
+    },
+    //获取用户信息
+    setUserInfo(state,payload){
+      state.userInfo = payload
+    },
+    
   },
   actions:{
-   
     //登录请求
    async getToken(context,payload){
-    const {data} = await login(payload)
-    console.log(data.token);
-    //登录成功跳转页面
-    router.push('/')
-      // if(data.success){
-      //  Message({
-      //   message:`${data.msg}`,
-      //   type:'success'
-      //  })
-       context.commit('setToken',data.token)
-      // }else {
-      //   Message.error(data.msg)
-      // }
+    try{
+      const res = await login(payload)
+    context.commit('setToken',res.token)
+    context.commit('setUserId',res.userId)
+    setTokenTime()
+    }catch(err){
+      console.log(err);
+    }
+    // 
     },
+    // 获取用户信息
+    async getUserInfo(context,payload){
+      const userInfo = await getUserInfoApi(payload)
+      console.log(userInfo);
+      context.commit('setUserInfo',userInfo)
+    },
+    async logout(context){ 
+      context.commit('setToken','')
+      context.commit('setUserInfo','')
+      context.commit('setUserId','')
+
+    }
   }
 }

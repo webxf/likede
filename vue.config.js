@@ -37,8 +37,8 @@ module.exports = {
       errors: true
     },
    proxy:{
-    '/likede/':{
-      target:'http://likede2-admin.itheima.net',
+    '/api':{
+      target:'http://likede2-admin.itheima.net/likede',
     }
    }
   },
