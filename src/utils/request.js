@@ -51,10 +51,11 @@ async function (error){
     await store.dispatch('user/logout')
     router.push('/login')
   }else{
-    Message.error(error.msg)
+    // Message.error(error.msg)
   }
   return Promise.reject(error)
 }
 ) // 响应拦截器
+
 
 export default service // 导出axios实例

@@ -4,16 +4,14 @@
       <img src="@/assets/home.png" alt="" />
     </div>
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img src="@/assets/touxiang.png" class="user-avatar" />
-          <span class="welcome"
-            >欢迎您，{{ $store.state.user.userInfo.loginName }}</span
-          >
-          <span class="loginout" @click="logout">退出</span>
-          <i class="el-icon-caret-bottom" />
-        </div>
-      </el-dropdown>
+      <div class="avatar-wrapper">
+        <img src="@/assets/touxiang.png" class="user-avatar" />
+        <span class="welcome"
+          >欢迎您，{{ $store.state.user.userInfo.loginName }}</span
+        >
+        <span class="loginout" @click="logout">退出</span>
+        <i class="el-icon-caret-bottom" />
+      </div>
     </div>
   </div>
 </template>
@@ -104,48 +102,45 @@ export default {
 
     .avatar-container {
       margin-right: 30px;
-
-      .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-
-        .user-avatar {
-          cursor: pointer;
-          width: 35px;
-          height: 35px;
-          border-radius: 10px;
-          // margin-right: 130px;
-          // margin-top: 10px;
-          position: absolute;
-          right: 220px;
-          top: 10px;
-        }
-        .welcome {
-          font-size: 16px;
-          color: #fff;
-          // margin-right: 100px;
-          // margin-top: 50px;
-          position: relative;
-          right: 74px;
-          top: 5px;
-        }
-        .loginout {
-          color: #fff;
-          position: relative;
-          right: 30px;
-          top: 5px;
-        }
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: 15px;
-          top: 25px;
-          font-size: 12px;
-          color: #fff;
-          margin-bottom: 20px;
-        }
-      }
     }
+  }
+}
+.avatar-wrapper {
+  position: relative;
+  .user-avatar {
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    // margin-right: 130px;
+    // margin-top: 10px;
+    position: absolute;
+    right: 220px;
+    top: 15px;
+  }
+  .welcome {
+    font-size: 16px;
+    color: #fff;
+    // margin-right: 100px;
+    // margin-top: 50px;
+    position: relative;
+    right: 74px;
+    top: 10px;
+  }
+  .loginout {
+    color: #fff;
+    position: relative;
+    right: 30px;
+    top: 10px;
+  }
+  .el-icon-caret-bottom {
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 30px;
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 20px;
   }
 }
 </style>

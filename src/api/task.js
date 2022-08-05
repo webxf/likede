@@ -7,14 +7,14 @@ import request from '@/utils/request'
  */
  export function getTaskStatusApi(){
     return request({
-      url:'/api/task-service/task/allTaskStatus',
+      url:'/task-service/task/allTaskStatus',
       method: 'GET',
     })
   }
 
   export function getTaskSearchApi(){
     return request({
-      url:'/api/task-service/task/search',
+      url:'/task-service/task/search',
       method: 'GET',
     })
   }

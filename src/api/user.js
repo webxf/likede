@@ -7,7 +7,7 @@ import request from '@/utils/request'
  */
 export const login = (data) => {
   return request({
-    url:'/api/user-service/user/login',
+    url:'/user-service/user/login',
     method:'POST',
    data
   })
@@ -20,7 +20,7 @@ export const login = (data) => {
 //验证码请求接口
 export const code = (clientToken) => {
   return request({
-    url:`/api/user-service/user/imageCode/${clientToken}`,
+    url:`/user-service/user/imageCode/${clientToken}`,
     method:'GET',
     responseType:'blob'
   })
@@ -32,7 +32,7 @@ export const code = (clientToken) => {
  */
 export function getUserInfoApi(id){
   return request({
-    url:`/api/user-service/user/${id}`,
+    url:`/user-service/user/${id}`,
     method: 'GET',
   })
 }
