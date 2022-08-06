@@ -22,9 +22,11 @@ export default {
   /*50 = navbar  */
   min-height: calc(100vh - 50px);
   width: 100%;
-  position: absolute;
-  top: -635px;
-  left: 25px;
+  margin-top: -645px;
+  /* margin-left: 20px; */
+  /* position: absolute;
+  top: -750px;
+  left: 25px; */
   overflow: hidden;
   background-color: #f8fafd;
 }

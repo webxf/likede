@@ -28,6 +28,7 @@
     .scrollbar-wrapper {
       overflow-x: hidden !important;
       background-color: #fff;
+      position:fixed
       
     }
 
@@ -37,7 +38,8 @@
 
     .el-scrollbar {
       height: 100%;
-      margin-top: 25px;
+      // position: fixed;
+      margin-top: 80px;
     }
 
     &.has-logo {

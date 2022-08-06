@@ -6,10 +6,10 @@
       <span class="status">工单状态：</span>
       <el-select v-model="value" placeholder="请选择">
         <el-option
-          v-for="item in options"
+          v-for="item in btnstatus"
           :key="item.value"
-          :label="item.label"
-          :value="item.value"
+          :label="item.statusName"
+          :value="item.statusId"
         >
         </el-option>
       </el-select>
@@ -18,6 +18,7 @@
         icon="el-icon-search
 "
         class="search-btn"
+        @click="allStatus"
         >查询</el-button
       >
     </el-card>
@@ -25,35 +26,34 @@
 </template>
 
 <script>
+import { allTaskStatus } from "@/api/task";
 export default {
+  props: {
+    btnstatus: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       input: "",
       value: "",
-      options: [
-        {
-          value: "选项1",
-          label: "代办",
-        },
-        {
-          value: "选项2",
-          label: "进行",
-        },
-        {
-          value: "选项3",
-          label: "取消",
-        },
-        {
-          value: "选项4",
-          label: "完成",
-        },
-      ],
+      taskstatus: [],
     };
   },
 
   created() {},
 
-  methods: {},
+  methods: {
+    async allStatus() {
+      const res = await allTaskStatus({
+        statusId: this.btnstatus.statusId,
+        statusName: this.btnstatus.statusName,
+      });
+      console.log(res);
+      console.log(this.btnstatus);
+    },
+  },
 };
 </script>
 

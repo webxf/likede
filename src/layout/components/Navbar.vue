@@ -45,8 +45,11 @@ export default {
 .navbar {
   height: 60px;
   overflow: hidden;
-  position: relative;
-  // width: 100%;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: 1999;
   background: #5373e0;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   .header-img img {
